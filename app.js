@@ -38,6 +38,7 @@ const trip = {
   destinations: [
     {
       name: "Tokyo",
+      role: "Core base",
       days: "4-6 nights",
       bestFor: ["Food", "Shopping", "Day trips"],
       summary: "Use Tokyo as the high-energy arrival base. Pick accommodation near a useful rail hub rather than chasing every neighbourhood.",
@@ -56,6 +57,7 @@ const trip = {
     },
     {
       name: "Hakone / Fuji area",
+      role: "Overnight reset",
       days: "1-2 nights",
       bestFor: ["Onsen", "Views", "Slower pace"],
       summary: "A compact break between the biggest city stops. Weather matters for Fuji views, so keep expectations flexible.",
@@ -74,6 +76,7 @@ const trip = {
     },
     {
       name: "Kyoto",
+      role: "Core base",
       days: "3-5 nights",
       bestFor: ["Culture", "Walking", "Temples"],
       summary: "Kyoto rewards early starts and grouped neighbourhood days. Avoid crossing the city too many times in one day.",
@@ -92,6 +95,7 @@ const trip = {
     },
     {
       name: "Osaka",
+      role: "Core base",
       days: "2-3 nights",
       bestFor: ["Food", "Nightlife", "Kansai base"],
       summary: "A relaxed final city with excellent food and airport access. It can also work as a base for Hiroshima or Himeji.",
@@ -110,6 +114,7 @@ const trip = {
     },
     {
       name: "Nara",
+      role: "Day trip",
       days: "Day trip",
       bestFor: ["History", "Parks", "Easy rail"],
       summary: "A straightforward day from Kyoto or Osaka with major temples and a walkable park area.",
@@ -129,6 +134,7 @@ const trip = {
     },
     {
       name: "Hiroshima / Miyajima",
+      role: "Extension",
       days: "1-2 nights or long day",
       bestFor: ["History", "Scenery", "Extension"],
       summary: "A strong optional extension if the trip has enough days. Best added after Kyoto or Osaka.",
@@ -147,6 +153,7 @@ const trip = {
     },
     {
       name: "Yokohama",
+      role: "Day trip",
       days: "Day trip or 1 night",
       bestFor: ["Waterfront", "Food", "Easy from Tokyo"],
       summary: "A low-friction Tokyo side trip with a very different feel: bay views, Chinatown, museums, and evening lights.",
@@ -165,6 +172,7 @@ const trip = {
     },
     {
       name: "Kanazawa",
+      role: "Extension",
       days: "1-2 nights",
       bestFor: ["Gardens", "Craft", "Seafood"],
       summary: "A polished optional add-on for gardens, samurai streets, tea districts, museums, and excellent seafood.",
@@ -181,6 +189,84 @@ const trip = {
         { name: "Higashi Chaya District", coords: [36.5720, 136.6669], detail: "Preserved teahouse streets and gold-leaf shops." },
       ],
       nearby: ["Shirakawa-go by bus", "Toyama as a rail stop", "Noto Peninsula only if the route and recovery conditions make sense", "Kaga onsen towns"],
+    },
+    {
+      name: "Kamakura",
+      role: "Tokyo day trip",
+      days: "Day trip",
+      bestFor: ["Temples", "Coast", "Easy rail"],
+      summary: "A strong Tokyo day trip when you want older temple atmosphere, hillside walks, seaside views, and a slower pace than the city.",
+      access: "Reach Kamakura by JR from Tokyo, Shinjuku, or Shinagawa, then walk or use the Enoden line for coastal stops like Hase and Enoshima.",
+      bestTime: "Spring and autumn are easiest for walking. Summer works if you want beach energy, but it can be humid and busy.",
+      walkTitle: "Kita-Kamakura to Hase temple walk",
+      walkNote: "Use rail to start north or west, then connect temples on foot. The full route is long, so choose a cluster if the weather is hot.",
+      center: [35.3192, 139.5467],
+      attractions: [
+        { name: "Kita-Kamakura Station", coords: [35.3371, 139.5458], detail: "Good start for quieter temple approaches." },
+        { name: "Tsurugaoka Hachimangu", coords: [35.3261, 139.5564], detail: "Major shrine and central Kamakura anchor." },
+        { name: "Komachi-dori", coords: [35.3214, 139.5515], detail: "Food and shopping street near Kamakura Station." },
+        { name: "Kotoku-in Great Buddha", coords: [35.3168, 139.5358], detail: "Iconic outdoor bronze Buddha near Hase." },
+        { name: "Hase-dera", coords: [35.3124, 139.5332], detail: "Temple with gardens, coastal views, and seasonal hydrangeas." },
+      ],
+      nearby: ["Enoshima island and coast", "Yokohama on a separate day", "Zushi or Hayama beaches", "Return to Tokyo for dinner"],
+    },
+    {
+      name: "Uji",
+      role: "Kyoto day trip",
+      days: "Half-day or day trip",
+      bestFor: ["Tea", "River", "Byodoin"],
+      summary: "A compact Kyoto-side add-on for green tea, riverside walking, and one major temple without committing to a full extra city.",
+      access: "Take JR or Keihan trains from Kyoto. The main sights sit around Uji Station, the river, and Byodoin.",
+      bestTime: "Good most of the year. Spring and autumn are most comfortable, while summer pairs well with tea shops and river shade.",
+      walkTitle: "Uji station, river, and Byodoin loop",
+      walkNote: "A very manageable walking loop from either JR Uji or Keihan Uji with tea shops and riverside stops close together.",
+      center: [34.8892, 135.8077],
+      attractions: [
+        { name: "JR Uji Station", coords: [34.8904, 135.8009], detail: "Convenient arrival point from Kyoto Station." },
+        { name: "Byodoin", coords: [34.8894, 135.8077], detail: "World Heritage temple and the main reason to visit." },
+        { name: "Uji Bridge", coords: [34.8914, 135.8075], detail: "Central river crossing and orientation point." },
+        { name: "Byodoin Omotesando", coords: [34.8900, 135.8054], detail: "Tea shops, sweets, and souvenirs." },
+        { name: "Ujigami Shrine", coords: [34.8927, 135.8117], detail: "Quiet shrine across the river from Byodoin." },
+      ],
+      nearby: ["Fushimi Inari if pacing allows", "Nara on another day", "Southern Kyoto sake district in Fushimi", "Return to Kyoto for dinner"],
+    },
+    {
+      name: "Himeji",
+      role: "Osaka/Kyoto day trip",
+      days: "Half-day or day trip",
+      bestFor: ["Castle", "Gardens", "Rail stop"],
+      summary: "The cleanest castle day trip from Kansai and a sensible rail stop if extending toward Hiroshima.",
+      access: "Reach Himeji by shinkansen from Shin-Osaka or Kyoto, or by JR special rapid from Osaka if saving money matters more than time.",
+      bestTime: "Spring is excellent around cherry blossoms, autumn is comfortable, and winter can be crisp and clear for castle photos.",
+      walkTitle: "Himeji Station to castle axis",
+      walkNote: "The castle is visible from the station. Walk the main avenue, tour the castle, then add Koko-en Garden next door.",
+      center: [34.8333, 134.6908],
+      attractions: [
+        { name: "Himeji Station", coords: [34.8277, 134.6908], detail: "Straight-line approach to the castle." },
+        { name: "Otemae-dori", coords: [34.8312, 134.6907], detail: "Main walking avenue with castle views." },
+        { name: "Himeji Castle", coords: [34.8394, 134.6939], detail: "Japan's best-known surviving original castle." },
+        { name: "Koko-en Garden", coords: [34.8375, 134.6895], detail: "Garden next to the castle; easy pairing." },
+      ],
+      nearby: ["Stop en route to Hiroshima", "Mount Shosha if adding more time", "Kobe dinner on the return", "Akashi Kaikyo Bridge area"],
+    },
+    {
+      name: "Nikko",
+      role: "Tokyo day trip or overnight",
+      days: "Day trip or 1 night",
+      bestFor: ["Shrines", "Forest", "Waterfalls"],
+      summary: "A heritage-and-nature add-on from Tokyo. It can be a long day trip, but an overnight makes the temples and lake area easier.",
+      access: "Use Tobu rail from Asakusa or JR/Tobu routes via Utsunomiya depending on passes and accommodation. Local buses connect the station area to shrine and lake sights.",
+      bestTime: "Autumn foliage is famous and busy. Spring and early summer are good for forest walks; winter can be atmospheric but cold.",
+      walkTitle: "Nikko shrine area",
+      walkNote: "The shrine area is walkable from the bus stops, but Lake Chuzenji and Kegon Falls need bus travel from central Nikko.",
+      center: [36.7553, 139.6004],
+      attractions: [
+        { name: "Shinkyo Bridge", coords: [36.7543, 139.6049], detail: "Photogenic bridge at the entrance to the shrine area." },
+        { name: "Toshogu Shrine", coords: [36.7581, 139.5989], detail: "Highly decorated World Heritage shrine complex." },
+        { name: "Rinnoji Temple", coords: [36.7562, 139.5994], detail: "Major temple beside the shrine area." },
+        { name: "Kanmangafuchi Abyss", coords: [36.7482, 139.5950], detail: "Quiet riverside walk with stone statues." },
+      ],
+      nearby: ["Lake Chuzenji by bus", "Kegon Falls", "Kinugawa Onsen", "Overnight if pairing nature with shrines"],
     },
   ],
   itinerary: [
@@ -253,6 +339,7 @@ destinationGrid.innerHTML = trip.destinations.map((destination) => `
       <div>
         <h3>${destination.name}</h3>
         <div class="meta">
+          <span class="pill role-pill">${destination.role}</span>
           <span class="pill">${destination.days}</span>
           ${destination.bestFor.map((item) => `<span class="pill">${item}</span>`).join("")}
         </div>

@@ -410,6 +410,11 @@ code {
   font-weight: 750;
 }
 
+.role-pill {
+  background: var(--forest);
+  color: #fff;
+}
+
 .destination-card p,
 .timeline-item p,
 .panel p {
