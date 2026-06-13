@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Personal planning site for a future Japan trip from Australia.">
+    <title>Japan Trip Planner</title>
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQmMbcxdo8JfLl3i3RXKpD3GkNyNSp4=" crossorigin="">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="#top">Japan Plan</a>
+        <div class="nav-links">
+          <a href="#route">Route</a>
+          <a href="#destinations">Destinations</a>
+          <a href="#itinerary">Itinerary</a>
+          <a href="#planning">Planning</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <img class="hero-image" src="assets/japan-hero.png" alt="Japanese train station street scene at golden hour">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <p class="eyebrow">Australia to Japan</p>
+          <h1 id="hero-title">A practical planner for our future Japan trip.</h1>
+          <p class="hero-copy">Route ideas, destination notes, transport choices, itinerary shape, and shared planning tasks in one place.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#itinerary">View itinerary</a>
+            <a class="button secondary" href="#route">Open route map</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="summary-band" aria-label="Trip summary">
+        <div class="summary-grid">
+          <div>
+            <span class="summary-label">Trip window</span>
+            <strong id="trip-window">Future dates</strong>
+          </div>
+          <div>
+            <span class="summary-label">Start</span>
+            <strong id="trip-start">Australia</strong>
+          </div>
+          <div>
+            <span class="summary-label">Core route</span>
+            <strong id="trip-route">Tokyo to Kyoto</strong>
+          </div>
+          <div>
+            <span class="summary-label">Style</span>
+            <strong id="trip-style">Food, rail, culture, cities</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="section intro" aria-labelledby="overview-title">
+        <div class="section-heading">
+          <p class="eyebrow">Overview</p>
+          <h2 id="overview-title">Trip shape</h2>
+        </div>
+        <div class="intro-grid">
+          <p>This planner starts with a classic first-time Japan route: arrive in Tokyo, travel by rail through the Fuji or Hakone area, continue to Kyoto and Osaka, then fly home from either Kansai or Tokyo. It leaves room for day trips and slower rest days.</p>
+          <p>Once flights and dates are chosen, update the trip data in <code>app.js</code>. The destination cards, itinerary, and map are all driven from that file.</p>
+        </div>
+      </section>
+
+      <section id="route" class="section map-section" aria-labelledby="route-title">
+        <div class="section-heading">
+          <p class="eyebrow">Journey map</p>
+          <h2 id="route-title">Draft route</h2>
+        </div>
+        <div class="map-layout">
+          <div id="map" class="map" aria-label="Interactive Japan journey map"></div>
+          <aside class="route-panel" aria-label="Route stops">
+            <h3>Stops</h3>
+            <ol id="route-list" class="route-list"></ol>
+          </aside>
+        </div>
+      </section>
+
+      <section id="destinations" class="section" aria-labelledby="destinations-title">
+        <div class="section-heading">
+          <p class="eyebrow">Destinations</p>
+          <h2 id="destinations-title">Useful notes by place</h2>
+        </div>
+        <div id="destination-grid" class="card-grid"></div>
+      </section>
+
+      <section id="itinerary" class="section itinerary-section" aria-labelledby="itinerary-title">
+        <div class="section-heading">
+          <p class="eyebrow">Itinerary</p>
+          <h2 id="itinerary-title">Flexible draft schedule</h2>
+        </div>
+        <div id="itinerary-list" class="timeline"></div>
+      </section>
+
+      <section id="planning" class="section planning-section" aria-labelledby="planning-title">
+        <div class="section-heading">
+          <p class="eyebrow">Planning</p>
+          <h2 id="planning-title">Decisions, transport, and costs</h2>
+        </div>
+        <div class="planning-grid">
+          <article class="panel">
+            <h3>Transport choices</h3>
+            <ul id="transport-list" class="detail-list"></ul>
+          </article>
+          <article class="panel">
+            <h3>Budget buckets</h3>
+            <ul id="budget-list" class="detail-list"></ul>
+          </article>
+          <article class="panel">
+            <h3>Before booking</h3>
+            <ul id="checklist" class="check-list"></ul>
+          </article>
+          <article class="panel calendar-preview">
+            <h3>Calendar</h3>
+            <p>Future version: a month view with booked flights, accommodation nights, rail reservations, and reminders.</p>
+            <div class="mini-calendar" aria-hidden="true">
+              <span></span><span></span><span class="filled"></span><span></span><span></span><span></span><span></span>
+              <span></span><span class="filled"></span><span class="filled"></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span class="filled"></span><span class="filled"></span><span></span><span></span>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Personal Japan trip planner. Update the route and dates as decisions become real.</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="app.js"></script>
+  </body>
+</html>
