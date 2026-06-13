@@ -89,6 +89,18 @@ a {
   overflow: hidden;
 }
 
+.destination-hero {
+  position: relative;
+  min-height: 640px;
+  display: grid;
+  align-items: end;
+  overflow: hidden;
+}
+
+.detail-hero .hero-content {
+  padding-bottom: 5rem;
+}
+
 .hero-image,
 .hero-overlay {
   position: absolute;
@@ -99,6 +111,62 @@ a {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.photo-stack {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--forest);
+}
+
+.photo-stack-large {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+}
+
+.photo-stack img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  animation: slowPhotoFade 24s infinite;
+}
+
+.photo-stack img:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.photo-stack img:nth-child(2) {
+  animation-delay: 8s;
+}
+
+.photo-stack img:nth-child(3) {
+  animation-delay: 16s;
+}
+
+@keyframes slowPhotoFade {
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  8%,
+  33% {
+    opacity: 1;
+  }
+
+  42% {
+    opacity: 0;
+  }
 }
 
 .hero-overlay {
@@ -189,6 +257,19 @@ h3 {
 .button.secondary {
   border-color: rgba(255, 255, 255, 0.48);
   color: #fff;
+}
+
+.text-link {
+  display: inline-flex;
+  margin-top: 1rem;
+  color: var(--accent-strong);
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.text-link:hover,
+.text-link:focus-visible {
+  text-decoration: underline;
 }
 
 .summary-band {
@@ -377,6 +458,10 @@ code {
   font-size: 0.92rem;
 }
 
+.destination-map-panel .photo-stack {
+  margin-bottom: 1rem;
+}
+
 .mini-map {
   width: 100%;
   height: 310px;
@@ -468,6 +553,103 @@ code {
   color: var(--muted);
   font-size: 0.82rem;
   font-weight: 700;
+}
+
+.card-events {
+  margin-top: 1rem;
+}
+
+.event-timetable {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.event-timetable li {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: start;
+}
+
+.event-timetable time {
+  color: var(--accent-strong);
+  font-size: 0.82rem;
+  font-weight: 850;
+}
+
+.event-timetable span {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.detail-map-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.detail-map {
+  width: 100%;
+  height: 540px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--sky);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.detail-map.leaflet-container {
+  height: 540px;
+  overflow: hidden;
+}
+
+.muted-copy {
+  color: var(--muted);
+}
+
+.attraction-list-large {
+  margin-top: 1.25rem;
+}
+
+.nearby-list-large {
+  margin-bottom: 2rem;
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.related-card {
+  display: grid;
+  gap: 0.2rem;
+  min-height: 96px;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  text-decoration: none;
+}
+
+.related-card strong {
+  font-size: 1rem;
+}
+
+.related-card span {
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 750;
 }
 
 .timeline {
@@ -602,6 +784,15 @@ code {
     grid-template-columns: 1fr;
   }
 
+  .detail-grid,
+  .detail-map-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .related-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .route-panel {
     order: -1;
   }
@@ -624,6 +815,10 @@ code {
 
   .hero {
     min-height: 720px;
+  }
+
+  .destination-hero {
+    min-height: 620px;
   }
 
   .hero-overlay {
@@ -672,5 +867,19 @@ code {
   .mini-map,
   .mini-map.leaflet-container {
     height: 280px;
+  }
+
+  .detail-map,
+  .detail-map.leaflet-container {
+    height: 420px;
+  }
+
+  .event-timetable li {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+
+  .related-grid {
+    grid-template-columns: 1fr;
   }
 }

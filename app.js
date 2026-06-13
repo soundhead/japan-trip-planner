@@ -325,15 +325,145 @@ const trip = {
   ],
 };
 
-document.getElementById("trip-window").textContent = trip.window;
-document.getElementById("trip-start").textContent = trip.start;
-document.getElementById("trip-route").textContent = trip.route;
-document.getElementById("trip-style").textContent = trip.style;
-
-const destinationGrid = document.getElementById("destination-grid");
 const slugify = (value) => value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
-destinationGrid.innerHTML = trip.destinations.map((destination) => `
+const destinationMedia = {
+  tokyo: {
+    photos: ["tokyo japan skyline", "asakusa tokyo japan", "shibuya tokyo night"],
+    events: [
+      ["Late Mar-Apr", "Cherry blossom walks in Ueno, Meguro, Shinjuku Gyoen, and along city rivers."],
+      ["May", "Sanja Matsuri brings one of Tokyo's biggest shrine festival weekends to Asakusa."],
+      ["Dec-Feb", "Winter illuminations and clearer skyline views suit evening city walks."],
+    ],
+  },
+  "hakone-fuji-area": {
+    photos: ["hakone lake ashi japan", "mount fuji hakone japan", "hakone shrine japan"],
+    events: [
+      ["Nov", "Autumn colour around Lake Ashi, Gora, and mountain rail routes."],
+      ["Dec-Feb", "Clearer air often improves Fuji visibility from the lake and ropeway areas."],
+      ["Late Mar-Apr", "Spring flowers and cherry blossoms around lower Hakone and Odawara."],
+    ],
+  },
+  kyoto: {
+    photos: ["kyoto japan temple", "gion kyoto japan", "arashiyama kyoto bamboo"],
+    events: [
+      ["Late Mar-Apr", "Cherry blossoms at temple gardens, riversides, and Philosopher's Path."],
+      ["Jul", "Gion Matsuri fills central Kyoto with festival floats and evening street atmosphere."],
+      ["Nov", "Autumn foliage around Higashiyama, Arashiyama, and northern temple areas."],
+    ],
+  },
+  osaka: {
+    photos: ["osaka dotonbori night", "osaka castle japan", "shinsekai osaka japan"],
+    events: [
+      ["Late Mar-Apr", "Cherry blossoms around Osaka Castle Park."],
+      ["Jul", "Tenjin Matsuri is one of Osaka's major summer festival moments."],
+      ["Nov-Dec", "Midosuji and central Osaka illuminations make evening food walks stronger."],
+    ],
+  },
+  nara: {
+    photos: ["nara park japan deer", "todaiji nara japan", "kasuga taisha nara"],
+    events: [
+      ["Late Mar-Apr", "Cherry blossoms around Nara Park and temple grounds."],
+      ["Aug", "Nara Tokae lantern evenings create a softer night visit around the park."],
+      ["Oct-Nov", "Cooler walking weather and autumn colour suit a full park loop."],
+    ],
+  },
+  "hiroshima-miyajima": {
+    photos: ["hiroshima peace park japan", "miyajima torii gate japan", "hiroshima castle japan"],
+    events: [
+      ["Late Mar-Apr", "Cherry blossoms around Peace Park, Hiroshima Castle, and Miyajima."],
+      ["Aug 6", "Peace Memorial Ceremony; important but emotionally heavy and logistically busy."],
+      ["Nov", "Autumn colour on Miyajima, especially around Momijidani Park."],
+    ],
+  },
+  yokohama: {
+    photos: ["yokohama minato mirai japan", "yokohama chinatown japan", "yokohama red brick warehouse"],
+    events: [
+      ["Feb", "Chinese New Year celebrations make Chinatown especially lively."],
+      ["Spring", "Waterfront walks are comfortable around Minato Mirai and Yamashita Park."],
+      ["Dec", "Winter lights suit skyline views and evening harbour walks."],
+    ],
+  },
+  kanazawa: {
+    photos: ["kanazawa kenrokuen japan", "kanazawa samurai district", "higashi chaya kanazawa"],
+    events: [
+      ["Late Mar-Apr", "Cherry blossoms around Kenrokuen and castle park."],
+      ["Jun", "Hyakumangoku Festival celebrates Kanazawa's Maeda clan history."],
+      ["Nov-Feb", "Autumn colour and winter snow scenes can make gardens especially atmospheric."],
+    ],
+  },
+  kamakura: {
+    photos: ["kamakura japan temple", "kamakura great buddha", "kamakura coast japan"],
+    events: [
+      ["Late Mar-Apr", "Cherry blossoms around shrines and temple approaches."],
+      ["Jun", "Hydrangeas are a major reason to visit Hase-dera and nearby temple areas."],
+      ["Sep-Nov", "Comfortable walking weather for temple trails and coastal add-ons."],
+    ],
+  },
+  uji: {
+    photos: ["uji japan byodoin", "uji river japan", "uji matcha tea japan"],
+    events: [
+      ["Spring", "Tea, river walks, and temple gardens are easy to combine in mild weather."],
+      ["May-Jun", "Fresh tea season makes Uji's tea shops and sweets more of a focus."],
+      ["Nov", "Autumn colour around Byodoin and the river area."],
+    ],
+  },
+  himeji: {
+    photos: ["himeji castle japan", "kokoen garden himeji", "himeji japan cherry blossoms"],
+    events: [
+      ["Late Mar-Apr", "Cherry blossoms around Himeji Castle are the peak timing."],
+      ["May", "Himeji Castle Festival adds parades and performances around the castle area."],
+      ["Oct-Nov", "Comfortable weather for castle touring and Koko-en Garden."],
+    ],
+  },
+  nikko: {
+    photos: ["nikko toshogu shrine japan", "nikko shinkyo bridge", "nikko japan autumn"],
+    events: [
+      ["May", "Spring shrine festivals and forest walks suit an overnight plan."],
+      ["Oct-Nov", "Autumn foliage is famous around Nikko, Lake Chuzenji, and Kegon Falls."],
+      ["Dec-Feb", "Winter is quieter and atmospheric, but transport and cold need more care."],
+    ],
+  },
+};
+
+const getDestinationMedia = (destination) => destinationMedia[slugify(destination.name)] || {
+  photos: [`${destination.name} japan`, `${destination.name} travel`, `${destination.name} attraction`],
+  events: [["Spring", "Comfortable walking weather."], ["Autumn", "Comfortable walking weather and seasonal colour."]],
+};
+
+const photoUrl = (destination, index) => `assets/destinations/${slugify(destination.name)}-${index + 1}.jpg`;
+
+const renderPhotoStack = (destination, size = "compact") => {
+  const media = getDestinationMedia(destination);
+  return `
+    <div class="photo-stack ${size === "large" ? "photo-stack-large" : ""}" aria-label="Rotating destination photos for ${destination.name}">
+      ${media.photos.map((query, index) => `<img src="${photoUrl(destination, index)}" alt="${destination.name} travel view ${index + 1}">`).join("")}
+    </div>
+  `;
+};
+
+const renderEventTimetable = (destination) => {
+  const media = getDestinationMedia(destination);
+  return `
+    <ol class="event-timetable">
+      ${media.events.map(([time, detail]) => `<li><time>${time}</time><span>${detail}</span></li>`).join("")}
+    </ol>
+  `;
+};
+
+const destinationUrl = (destination) => `destination.html?place=${slugify(destination.name)}`;
+
+const tripWindow = document.getElementById("trip-window");
+if (tripWindow) {
+  tripWindow.textContent = trip.window;
+  document.getElementById("trip-start").textContent = trip.start;
+  document.getElementById("trip-route").textContent = trip.route;
+  document.getElementById("trip-style").textContent = trip.style;
+}
+
+const destinationGrid = document.getElementById("destination-grid");
+if (destinationGrid) {
+  destinationGrid.innerHTML = trip.destinations.map((destination) => `
   <article class="destination-card destination-detail">
     <div class="destination-main">
       <div>
@@ -367,17 +497,25 @@ destinationGrid.innerHTML = trip.destinations.map((destination) => `
           ${destination.nearby.map((item) => `<span>${item}</span>`).join("")}
         </div>
       </section>
+      <a class="text-link" href="${destinationUrl(destination)}">Open destination page</a>
     </div>
     <div class="destination-map-panel">
+      ${renderPhotoStack(destination)}
       <h4>${destination.walkTitle}</h4>
       <p>${destination.walkNote}</p>
       <div id="destination-map-${slugify(destination.name)}" class="mini-map" aria-label="Walkable attractions map for ${destination.name}"></div>
+      <section class="card-events">
+        <h4>Major timing notes</h4>
+        ${renderEventTimetable(destination)}
+      </section>
     </div>
   </article>
-`).join("");
+  `).join("");
+}
 
 const itineraryList = document.getElementById("itinerary-list");
-itineraryList.innerHTML = trip.itinerary.map((item) => `
+if (itineraryList) {
+  itineraryList.innerHTML = trip.itinerary.map((item) => `
   <article class="timeline-item">
     <span class="day-label">${item.day}</span>
     <div>
@@ -388,18 +526,20 @@ itineraryList.innerHTML = trip.itinerary.map((item) => `
       </div>
     </div>
   </article>
-`).join("");
+  `).join("");
+}
 
-document.getElementById("transport-list").innerHTML = trip.transport.map((item) => `<li>${item}</li>`).join("");
-document.getElementById("budget-list").innerHTML = trip.budget.map((item) => `<li>${item}</li>`).join("");
-document.getElementById("checklist").innerHTML = trip.checklist.map((item) => `<li>${item}</li>`).join("");
+const transportList = document.getElementById("transport-list");
+if (transportList) {
+  transportList.innerHTML = trip.transport.map((item) => `<li>${item}</li>`).join("");
+  document.getElementById("budget-list").innerHTML = trip.budget.map((item) => `<li>${item}</li>`).join("");
+  document.getElementById("checklist").innerHTML = trip.checklist.map((item) => `<li>${item}</li>`).join("");
+}
 
 const routeList = document.getElementById("route-list");
-routeList.innerHTML = trip.stops.map((stop) => `<li><strong>${stop.name}</strong><span>${stop.note}</span></li>`).join("");
-
-const map = L.map("map", {
-  scrollWheelZoom: false,
-});
+if (routeList) {
+  routeList.innerHTML = trip.stops.map((stop) => `<li><strong>${stop.name}</strong><span>${stop.note}</span></li>`).join("");
+}
 
 const baseTileLayer = (targetMap) => {
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -408,91 +548,149 @@ const baseTileLayer = (targetMap) => {
   }).addTo(targetMap);
 };
 
-baseTileLayer(map);
-
 const routeCoords = trip.stops.map((stop) => stop.coords);
-const australiaToJapan = [trip.stops[0].coords, trip.stops[1].coords];
-const japanRail = trip.stops.slice(1).map((stop) => stop.coords);
+const allMaps = [];
 
-L.polyline(australiaToJapan, {
-  color: "#b83535",
-  weight: 3,
-  dashArray: "8 10",
-}).addTo(map);
+const initAttractionMap = (elementId, destination, options = {}) => {
+  const target = document.getElementById(elementId);
+  if (!target) return null;
 
-L.polyline(japanRail, {
-  color: "#245044",
-  weight: 4,
-}).addTo(map);
-
-trip.stops.forEach((stop, index) => {
-  L.circleMarker(stop.coords, {
-    radius: index === 0 ? 7 : 9,
-    fillColor: index === 0 ? "#c08a2d" : "#b83535",
-    color: "#ffffff",
-    weight: 2,
-    opacity: 1,
-    fillOpacity: 0.95,
-  })
-    .addTo(map)
-    .bindPopup(`<strong>${stop.name}</strong><br>${stop.note}`);
-});
-
-map.fitBounds(L.latLngBounds(routeCoords), {
-  padding: [28, 28],
-});
-
-const destinationMaps = trip.destinations.map((destination) => {
-  const destinationMap = L.map(`destination-map-${slugify(destination.name)}`, {
+  const attractionMap = L.map(elementId, {
     attributionControl: false,
     dragging: true,
     scrollWheelZoom: false,
-    zoomControl: false,
+    zoomControl: options.zoomControl || false,
   });
-  baseTileLayer(destinationMap);
+  baseTileLayer(attractionMap);
 
   const attractionCoords = destination.attractions.map((attraction) => attraction.coords);
   const bounds = L.latLngBounds(attractionCoords);
 
   destination.attractions.forEach((attraction) => {
     L.circleMarker(attraction.coords, {
-      radius: 7,
+      radius: options.markerRadius || 7,
       fillColor: "#b83535",
       color: "#ffffff",
       weight: 2,
       fillOpacity: 0.95,
     })
-      .addTo(destinationMap)
+      .addTo(attractionMap)
       .bindPopup(`<strong>${attraction.name}</strong><br>${attraction.detail}`);
   });
 
   L.polyline(attractionCoords, {
     color: "#245044",
-    weight: 3,
+    weight: options.lineWeight || 3,
     opacity: 0.72,
     dashArray: "5 8",
-  }).addTo(destinationMap);
+  }).addTo(attractionMap);
 
-  destinationMap.fitBounds(bounds, {
-    padding: [22, 22],
-    maxZoom: 15,
+  const fit = () => {
+    attractionMap.invalidateSize();
+    attractionMap.fitBounds(bounds, {
+      padding: options.padding || [22, 22],
+      maxZoom: options.maxZoom || 15,
+    });
+  };
+
+  fit();
+  allMaps.push(fit);
+  return attractionMap;
+};
+
+const mainMapElement = document.getElementById("map");
+if (mainMapElement) {
+  const map = L.map("map", {
+    scrollWheelZoom: false,
+  });
+  baseTileLayer(map);
+
+  const australiaToJapan = [trip.stops[0].coords, trip.stops[1].coords];
+  const japanRail = trip.stops.slice(1).map((stop) => stop.coords);
+
+  L.polyline(australiaToJapan, {
+    color: "#b83535",
+    weight: 3,
+    dashArray: "8 10",
+  }).addTo(map);
+
+  L.polyline(japanRail, {
+    color: "#245044",
+    weight: 4,
+  }).addTo(map);
+
+  trip.stops.forEach((stop, index) => {
+    L.circleMarker(stop.coords, {
+      radius: index === 0 ? 7 : 9,
+      fillColor: index === 0 ? "#c08a2d" : "#b83535",
+      color: "#ffffff",
+      weight: 2,
+      opacity: 1,
+      fillOpacity: 0.95,
+    })
+      .addTo(map)
+      .bindPopup(`<strong>${stop.name}</strong><br>${stop.note}`);
   });
 
-  return { map: destinationMap, bounds };
-});
+  const fitMainMap = () => {
+    map.invalidateSize();
+    map.fitBounds(L.latLngBounds(routeCoords), {
+      padding: [28, 28],
+    });
+  };
+
+  fitMainMap();
+  allMaps.push(fitMainMap);
+}
+
+if (destinationGrid) {
+  trip.destinations.forEach((destination) => {
+    initAttractionMap(`destination-map-${slugify(destination.name)}`, destination);
+  });
+}
+
+const detailRoot = document.getElementById("destination-page");
+if (detailRoot) {
+  const params = new URLSearchParams(window.location.search);
+  const place = params.get("place") || "tokyo";
+  const destination = trip.destinations.find((item) => slugify(item.name) === place) || trip.destinations[0];
+  const related = trip.destinations.filter((item) => item !== destination).slice(0, 5);
+
+  document.title = `${destination.name} | Japan Trip Planner`;
+  document.getElementById("destination-title").textContent = destination.name;
+  document.getElementById("destination-summary").textContent = destination.summary;
+  document.getElementById("destination-meta").innerHTML = `
+    <span class="pill role-pill">${destination.role}</span>
+    <span class="pill">${destination.days}</span>
+    ${destination.bestFor.map((item) => `<span class="pill">${item}</span>`).join("")}
+  `;
+  document.getElementById("destination-photos").innerHTML = renderPhotoStack(destination, "large");
+  document.getElementById("destination-access").textContent = destination.access;
+  document.getElementById("destination-best-time").textContent = destination.bestTime;
+  document.getElementById("destination-walk-title").textContent = destination.walkTitle;
+  document.getElementById("destination-walk-note").textContent = destination.walkNote;
+  document.getElementById("destination-events").innerHTML = renderEventTimetable(destination);
+  document.getElementById("destination-attractions").innerHTML = destination.attractions.map((attraction) => `
+    <li><strong>${attraction.name}</strong><span>${attraction.detail}</span></li>
+  `).join("");
+  document.getElementById("destination-nearby").innerHTML = destination.nearby.map((item) => `<span>${item}</span>`).join("");
+  document.getElementById("related-destinations").innerHTML = related.map((item) => `
+    <a class="related-card" href="${destinationUrl(item)}">
+      <strong>${item.name}</strong>
+      <span>${item.role}</span>
+    </a>
+  `).join("");
+
+  initAttractionMap("destination-detail-map", destination, {
+    zoomControl: true,
+    markerRadius: 8,
+    lineWeight: 4,
+    padding: [34, 34],
+  });
+}
 
 const refreshMapLayout = () => {
-  map.invalidateSize();
-  map.fitBounds(L.latLngBounds(routeCoords), {
-    padding: [28, 28],
-  });
-  destinationMaps.forEach(({ map: destinationMap, bounds }) => {
-    destinationMap.invalidateSize();
-    destinationMap.fitBounds(bounds, {
-      padding: [22, 22],
-      maxZoom: 15,
-    });
-  });
+  allMaps.forEach((fit) => fit());
 };
 
 requestAnimationFrame(refreshMapLayout);

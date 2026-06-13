@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Destination detail page for the Japan trip planner.">
+    <title>Destination | Japan Trip Planner</title>
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQmMbcxdo8JfLl3i3RXKpD3GkNyNSp4=" crossorigin="">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="index.html#top">Japan Plan</a>
+        <div class="nav-links">
+          <a href="index.html#route">Route</a>
+          <a href="index.html#destinations">Destinations</a>
+          <a href="index.html#itinerary">Itinerary</a>
+          <a href="index.html#planning">Planning</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="destination-page">
+      <section class="destination-hero detail-hero">
+        <div id="destination-photos"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <p class="eyebrow">Destination</p>
+          <h1 id="destination-title">Destination</h1>
+          <p id="destination-summary" class="hero-copy"></p>
+          <div id="destination-meta" class="meta"></div>
+        </div>
+      </section>
+
+      <section class="section detail-overview" aria-label="Destination planning overview">
+        <div class="detail-grid">
+          <article class="panel">
+            <h3>How to get there</h3>
+            <p id="destination-access"></p>
+          </article>
+          <article class="panel">
+            <h3>Best time to visit</h3>
+            <p id="destination-best-time"></p>
+          </article>
+          <article class="panel events-panel">
+            <h3>Major timing notes</h3>
+            <div id="destination-events"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="walk-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">On foot</p>
+            <h2 id="walk-title">Walkable area</h2>
+          </div>
+        </div>
+        <div class="detail-map-layout">
+          <div>
+            <h3 id="destination-walk-title"></h3>
+            <p id="destination-walk-note" class="muted-copy"></p>
+            <ul id="destination-attractions" class="attraction-list attraction-list-large"></ul>
+          </div>
+          <div id="destination-detail-map" class="detail-map" aria-label="Destination walkable attraction map"></div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="nearby-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Nearby</p>
+            <h2 id="nearby-title">Good add-ons</h2>
+          </div>
+        </div>
+        <div id="destination-nearby" class="nearby-list nearby-list-large"></div>
+        <div id="related-destinations" class="related-grid"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p><a href="index.html#destinations">Back to destinations</a></p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="app.js"></script>
+  </body>
+</html>

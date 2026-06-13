@@ -21,11 +21,13 @@ Use this `AGENTS.md` file as the project memory. Keep it short, factual, and upd
 - `index.html`: page structure and section anchors.
 - `styles.css`: responsive visual design.
 - `app.js`: main editable trip data and rendering logic.
+- `destination.html`: detail-page template for individual destinations using `?place=<slug>`.
 - `serve-local.js`: tiny local static server.
 - `start-site.ps1`: PowerShell launcher that starts the local server from the project folder.
 - `start-site.bat`: batch launcher fallback if PowerShell script execution is blocked.
 - `README.md`: user-facing project notes and hosting options.
 - `assets/japan-hero.png`: local hero image used by the homepage.
+- `assets/destinations/`: local rotating destination photos used by the homepage and detail pages.
 
 ## Run Locally
 
@@ -54,6 +56,7 @@ Leave the terminal running while previewing the site.
 ## Editing Guidance
 
 - Most trip content should be edited in the `trip` object in `app.js`.
+- Destination photo/event metadata lives in `destinationMedia` in `app.js`; local image files are named `assets/destinations/<slug>-1.jpg` through `<slug>-3.jpg`.
 - Keep the site static unless there is a clear need for a framework.
 - Preserve easy free hosting on GitHub Pages, Cloudflare Pages, or Netlify.
 - Avoid adding dependencies or build tooling unless the project grows beyond simple static editing.
